@@ -1,17 +1,27 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 export const FileUploader: React.FC = () => {
+  const [dataArray, setDataArray] = useState<string[][]>([]);
+  let string = '';
+
   const uploadFile = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files[0];
-    const reader = new FileReader();
+    if (event.target.files) {
+      const file = event.target.files[0];
 
-    reader.onload = (e) => {
-      // eslint-disable-next-line no-console
-      console.log(e.target?.result);
-    };
+      const reader = new FileReader();
 
-    reader.readAsText(file);
+      reader.onload = (e) => {
+        string = e.target?.result as string;
+      };
+
+      reader.readAsText(file);
+    }
   };
+
+  useEffect(() => {
+    setDataArray(string.split('\n').map(row => row.split(',')));
+    console.log(dataArray);
+  }, [string]);
 
   return (
     <form>
