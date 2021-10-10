@@ -17,17 +17,12 @@ export const App: React.FC = () => {
   };
 
   const parseData = (data: string) => {
-    if ((fileData.slice(0, 9) !== 'Full Name')) {
-      const parseResult = Papa.parse((header + data), parseConfig);
+    const parseResult = fileData.toLowerCase().includes(header.toLowerCase())
+      ? Papa.parse(data, parseConfig)
+      : Papa.parse((header + data), parseConfig);
 
-      setParsedData(parseResult.data as LawyerData[]);
-      console.log(parseResult);
-    } else {
-      const parseResult = Papa.parse(data, parseConfig);
-
-      setParsedData(parseResult.data as LawyerData[]);
-      console.log(parseResult);
-    }
+    setParsedData(parseResult.data as LawyerData[]);
+    console.log(parseResult);
   };
 
   return (

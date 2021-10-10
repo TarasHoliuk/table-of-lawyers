@@ -14,6 +14,9 @@ module.exports = {
     'no-proto': 0,
     'no-unused-vars': 0,
     'no-console': 0,
+    'no-restricted-syntax': 0,
+    'guard-for-in': 0,
+    'no-case-declarations': 0,
 
     // TypeScript
     '@typescript-eslint/no-unused-vars': ['error'],
