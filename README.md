@@ -1,9 +1,7 @@
-# React TypeScript Starter Pack
+# Table Of Lawyers
 
-To use this template click `Use this template`
+[Demo Link](https://tarasholiuk.github.io/table-of-lawyers/)
 
-### Available Scripts
+# Task Description
 
-`Deploy` - available to deploy your application to gh-pages
-
-`SCSS Preprocessor` - available to write your styles with modern style language
+[Task Link](https://docs.google.com/document/d/1mvd6bS0YHSk8NDcMLSLGHxWfOqSXTlHruw7wzEJIPhA/edit)
