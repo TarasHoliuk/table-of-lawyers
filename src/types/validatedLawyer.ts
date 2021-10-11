@@ -1,4 +1,5 @@
 export interface ValidatedLawyer {
+  ID: number;
   'Full Name': {value: string, isValid: boolean, errorMessage: string};
   Phone: {value: string, isValid: boolean, errorMessage: string};
   Email: {value: string, isValid: boolean, errorMessage: string};
@@ -9,9 +10,5 @@ export interface ValidatedLawyer {
   'License states': {value: string, isValid: boolean, errorMessage: string};
   'Expiration date': {value: string, isValid: boolean, errorMessage: string};
   'License number': {value: string, isValid: boolean, errorMessage: string};
-  errors: {
-    phoneError: string;
-    nameError: string;
-    emailError: string;
-  };
+  'Duplicated with': number | null;
 }

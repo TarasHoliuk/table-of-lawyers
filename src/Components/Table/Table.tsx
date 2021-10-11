@@ -1,41 +1,47 @@
 import React from 'react';
-import { LawyerData } from '../../types/lawyerData';
+import { ValidatedLawyer } from '../../types/validatedLawyer';
 
 interface Props {
-  parsedData: LawyerData[];
+  validatedData: ValidatedLawyer[];
 }
 
 export const Table: React.FC<Props> = React.memo(
   (props) => {
-    const { parsedData } = props;
-    const header = Object.keys(parsedData[0]);
+    const { validatedData } = props;
 
     return (
       <table>
         <thead>
           <tr>
             <th>ID</th>
-            {header.map(columnName => (
-              <th key={columnName}>{columnName}</th>
-            ))}
-            <th>Duplicate with</th>
+            <th>Full Name</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Age</th>
+            <th>Experience</th>
+            <th>Yearly Income</th>
+            <th>Has children</th>
+            <th>License states</th>
+            <th>Expiration date</th>
+            <th>License number</th>
+            <th>Duplicated with</th>
           </tr>
         </thead>
         <tbody>
-          {parsedData.map((row, index) => (
-            <tr key={row['License number']}>
-              <td>{index + 1}</td>
-              <td>{row['Full Name']}</td>
-              <td>{row.Phone}</td>
-              <td>{row.Email}</td>
-              <td>{row.Age}</td>
-              <td>{row.Experience}</td>
-              <td>{row['Yearly Income']}</td>
-              <td>{row['Has children']}</td>
-              <td>{row['License states']}</td>
-              <td>{row['Expiration date']}</td>
-              <td>{row['License number']}</td>
-              <td>No duplicates</td>
+          {validatedData.map((row) => (
+            <tr key={row.ID}>
+              <td>{row.ID}</td>
+              <td>{row['Full Name'].value}</td>
+              <td>{row.Phone.value}</td>
+              <td>{row.Email.value}</td>
+              <td>{row.Age.value}</td>
+              <td>{row.Experience.value}</td>
+              <td>{row['Yearly Income'].value}</td>
+              <td>{row['Has children'].value}</td>
+              <td>{row['License states'].value}</td>
+              <td>{row['Expiration date'].value}</td>
+              <td>{row['License number'].value}</td>
+              <td>{row['Duplicated with']}</td>
             </tr>
           ))}
         </tbody>

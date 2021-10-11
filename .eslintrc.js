@@ -17,6 +17,8 @@ module.exports = {
     'no-restricted-syntax': 0,
     'guard-for-in': 0,
     'no-case-declarations': 0,
+    'padding-line-between-statements': 0,
+    'no-param-reassign': 0,
 
     // TypeScript
     '@typescript-eslint/no-unused-vars': ['error'],

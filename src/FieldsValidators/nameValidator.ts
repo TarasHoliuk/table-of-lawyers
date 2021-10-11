@@ -1,8 +1,22 @@
-export const nameValidator = (name: string) => {
+export const nameValidator = (
+  name: string,
+  setGlobalError: React.Dispatch<React.SetStateAction<boolean>>,
+) => {
   let errorMessage = '';
-  const trimmedName = name.trim();
-  const isValid = trimmedName.includes(' ');
+  let isValid = false;
+  let trimmedName = '';
 
+  if (name === null) {
+    setGlobalError(true);
+  } else {
+    trimmedName = name.trim();
+
+    if (trimmedName === '') {
+      setGlobalError(true);
+    }
+  }
+
+  isValid = trimmedName.includes(' ');
   errorMessage = isValid
     ? ''
     : 'Full name should include at least two words';

@@ -16,7 +16,6 @@ export const expirationDateValidator = (date: string) => {
   const currentDate = new Date().toDateString();
 
   const isLicenseValid = Date.parse(currentDate) < Date.parse(trimmedDate);
-
   errorMessage += isLicenseValid
     ? ''
     : 'Expiration date is not valid';
