@@ -1,5 +1,5 @@
 export const phoneValidator = (phone: string) => {
-  const phoneRegExp = /^(\+|\+1)?[\d]{10,11}$/;
+  const phoneRegExp = /^(\+1|\+)?([\d]{10,11}$)/;
   const trimmedPhone = phone.trim();
   const isValid = phoneRegExp.test(trimmedPhone);
   let formattedPhone = '';

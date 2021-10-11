@@ -11,6 +11,15 @@ export const App: React.FC = () => {
   const header = 'Full Name,Phone,Email,Age,Experience,Yearly Income,Has children,License states,Expiration date,License number\r\n';
   const [parsedData, setParsedData] = useState<LawyerData[]>([]);
 
+  const cur = new Date().toDateString();
+  const str1for = '2021-12-28';
+  const str2for = '12/28/2021';
+  const res1 = Date.parse(cur) - Date.parse(str1for);
+  const res2 = Date.parse(cur) - Date.parse(str2for);
+
+  console.log(res1);
+  console.log(res2);
+
   const parseConfig = {
     header: true,
     dynamicTyping: true,

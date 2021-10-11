@@ -35,6 +35,8 @@ export const validator = (data: LawyerData[]) => {
         case 'Has children':
           validatedLawyer[key] = hasChildrenValidator(lawyer[key]);
           break;
+        // case 'Expiration date':
+        //   validatedLawyer[key]
         default:
           break;
       }
