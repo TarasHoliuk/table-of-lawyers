@@ -9,8 +9,8 @@ export const emailValidator = (email: string) => {
     : 'Email is not valid';
 
   return {
-    emailError,
     value: trimmedEmail,
+    errorMessage: emailError,
     valid,
   };
 };

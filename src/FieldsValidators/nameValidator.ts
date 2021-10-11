@@ -9,7 +9,7 @@ export const nameValidator = (name: string) => {
 
   return {
     value: trimmedName,
-    nameError,
+    errorMessage: nameError,
     valid,
   };
 };

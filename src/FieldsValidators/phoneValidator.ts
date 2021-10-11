@@ -23,8 +23,8 @@ export const phoneValidator = (phone: string) => {
   }
 
   return {
-    valid,
     value: formattedPhone,
-    phoneError,
+    errorMessage: phoneError,
+    valid,
   };
 };

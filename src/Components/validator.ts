@@ -11,25 +11,13 @@ export const validator = (data: LawyerData[]) => {
     for (const key in lawyer) {
       switch (key) {
         case 'Full Name':
-          const nameValidationResult = nameValidator(lawyer[key]);
-
-          validatedLawyer.errors.nameError = nameValidationResult.nameError;
-          validatedLawyer[key].value = nameValidationResult.value;
-          validatedLawyer[key].valid = nameValidationResult.valid;
+          validatedLawyer[key] = nameValidator(lawyer[key]);
           break;
         case 'Phone':
-          const phoneValidationResult = phoneValidator(lawyer[key]);
-
-          validatedLawyer.errors.phoneError = phoneValidationResult.phoneError;
-          validatedLawyer[key].value = phoneValidationResult.value;
-          validatedLawyer[key].valid = phoneValidationResult.valid;
+          validatedLawyer[key] = phoneValidator(lawyer[key]);
           break;
         case 'Email':
-          const emailValidationResult = emailValidator(lawyer[key]);
-
-          validatedLawyer.errors.emailError = emailValidationResult.emailError;
-          validatedLawyer[key].value = emailValidationResult.value;
-          validatedLawyer[key].valid = emailValidationResult.valid;
+          validatedLawyer[key] = emailValidator(lawyer[key]);
           break;
         default:
           break;
