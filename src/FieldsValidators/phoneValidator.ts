@@ -1,11 +1,11 @@
 export const phoneValidator = (phone: string) => {
   const phoneRegExp = /^(\+|\+1)?[\d]{10,11}$/;
   const trimmedPhone = phone.trim();
-  const valid = phoneRegExp.test(trimmedPhone);
+  const isValid = phoneRegExp.test(trimmedPhone);
   let formattedPhone = '';
-  let phoneError = '';
+  let errorMessage = '';
 
-  if (valid) {
+  if (isValid) {
     switch (trimmedPhone.length) {
       case 10:
         formattedPhone = `+1${trimmedPhone}`;
@@ -19,12 +19,12 @@ export const phoneValidator = (phone: string) => {
     }
   } else {
     formattedPhone = trimmedPhone;
-    phoneError = 'Invalid phone format';
+    errorMessage = 'Invalid phone format';
   }
 
   return {
     value: formattedPhone,
-    errorMessage: phoneError,
-    valid,
+    errorMessage,
+    isValid,
   };
 };

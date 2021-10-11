@@ -1,15 +1,15 @@
 export const nameValidator = (name: string) => {
-  let nameError = '';
+  let errorMessage = '';
   const trimmedName = name.trim();
-  const valid = trimmedName.includes(' ');
+  const isValid = trimmedName.includes(' ');
 
-  nameError = valid
+  errorMessage = isValid
     ? ''
     : 'Full name should include at least two words';
 
   return {
     value: trimmedName,
-    errorMessage: nameError,
-    valid,
+    errorMessage,
+    isValid,
   };
 };

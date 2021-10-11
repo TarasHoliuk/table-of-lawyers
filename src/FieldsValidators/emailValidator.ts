@@ -1,16 +1,16 @@
 export const emailValidator = (email: string) => {
-  let emailError = '';
+  let errorMessage = '';
   const trimmedEmail = email.trim();
   const emailRegExp = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-  const valid = emailRegExp.test(trimmedEmail);
+  const isValid = emailRegExp.test(trimmedEmail);
 
-  emailError = valid
+  errorMessage = isValid
     ? ''
     : 'Email is not valid';
 
   return {
     value: trimmedEmail,
-    errorMessage: emailError,
-    valid,
+    errorMessage,
+    isValid,
   };
 };

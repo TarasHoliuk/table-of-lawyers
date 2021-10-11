@@ -22,7 +22,6 @@ export const App: React.FC = () => {
       : Papa.parse((header + data), parseConfig);
 
     setParsedData(parseResult.data as LawyerData[]);
-    console.log(parseResult);
   };
 
   return (
