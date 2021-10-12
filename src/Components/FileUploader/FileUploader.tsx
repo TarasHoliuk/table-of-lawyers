@@ -1,46 +1,71 @@
-import React, { RefObject, useState } from 'react';
+import React, { useState } from 'react';
+import { parser } from '../../parser';
+import { LawyerData } from '../../types/lawyerData';
 
 interface Props {
-  setFileData: React.Dispatch<React.SetStateAction<string>>;
+  setParsedData: React.Dispatch<React.SetStateAction<LawyerData[]>>;
 }
 
-export const FileUploader: React.FC<Props> = React.memo(
-  (props) => {
-    const [isChanged, setIsChanged] = useState(false);
-    const inputRef: RefObject<HTMLInputElement> = React.createRef();
-    const { setFileData } = props;
+export const FileUploader: React.FC<Props> = (props) => {
+  const { setParsedData } = props;
+  // const [fileData, setFileData] = useState('');
+  const [file, setFile] = useState<File>();
 
-    const uploadFile = (input: React.RefObject<HTMLInputElement>) => {
-      if (input.current?.files) {
-        const file = input.current.files[0];
-        const reader = new FileReader();
+  const parseData = (data: string) => {
+    console.log('parsing');
+    const parsingResult = parser(data);
+    setParsedData(parsingResult);
+    console.log('parsed');
+  };
 
-        reader.onload = (progressEvent) => {
-          const csvString = progressEvent.target?.result as string;
-          setFileData(csvString);
-        };
+  const uploadFile = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target?.files) {
+      // setFile(event.target.files[0]);
+      const reader = new FileReader();
 
-        reader.readAsText(file);
+      reader.onload = (progressEvent) => {
+        const csvString = progressEvent.target?.result as string;
+        parseData(csvString);
+      };
+
+      if (event.target.files[0]) {
+        reader.readAsText(event.target.files[0]);
       }
-    };
+    }
+  };
 
-    return (
-      <>
-        <input
-          ref={inputRef}
-          type="file"
-          accept=".csv"
-          onChange={() => setIsChanged(true)}
-        />
+  return (
+    <>
+      <div className="file is-info has-name">
+        <label className="file-label">
+          <input
+            type="file"
+            accept=".csv"
+            className="file-input"
+            onChange={(event) => uploadFile(event)}
+          />
+          <span className="file-cta">
+            <span className="file-icon">
+              <i className="fas fa-upload"></i>
+            </span>
+            <span className="file-label">
+              CSV file...
+            </span>
+          </span>
+          <span className="file-name">
+            {file ? `${file.name}` : 'Choose the file'}
+          </span>
+        </label>
+      </div>
 
-        <button
-          type="button"
-          onClick={() => uploadFile(inputRef)}
-          disabled={!isChanged}
-        >
-          Parse data
-        </button>
-      </>
-    );
-  },
-);
+      <button
+        type="button"
+        className="button is-info"
+        // onClick={() => parseData(fileData)}
+        disabled={!file}
+      >
+        Parse data
+      </button>
+    </>
+  );
+};

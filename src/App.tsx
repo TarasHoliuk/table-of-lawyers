@@ -1,21 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { FileUploader } from './Components/FileUploader/FileUploader';
 import { Table } from './Components/Table/Table';
 import { validator } from './Components/validator';
-import { parser } from './parser';
 import { LawyerData } from './types/lawyerData';
 import { ValidatedLawyer } from './types/validatedLawyer';
 
 export const App: React.FC = () => {
-  const [fileData, setFileData] = useState('');
   const [parsedData, setParsedData] = useState<LawyerData[]>([]);
   const [validatedData, setValidatedData] = useState<ValidatedLawyer[]>([]);
   const [globalError, setGlobalError] = useState(false);
 
-  useEffect(() => {
-    setParsedData(parser(fileData));
-  }, [fileData]);
+  console.log(parsedData);
 
   const showTable = () => {
     setGlobalError(false);
@@ -25,11 +21,12 @@ export const App: React.FC = () => {
   return (
     <>
       <div className="App">
-        <FileUploader setFileData={setFileData} />
+        <FileUploader setParsedData={setParsedData} />
       </div>
 
       <button
         type="button"
+        className="button is-primary"
         onClick={() => showTable()}
         disabled={parsedData.length <= 0}
       >

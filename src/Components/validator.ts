@@ -16,11 +16,13 @@ export const validator = (
   data: LawyerData[],
   setGlobalError: React.Dispatch<React.SetStateAction<boolean>>,
 ) => {
+  let idCounter = 1;
+
   let validatedData = data.map(lawyer => {
     const validatedLawyer: ValidatedLawyer = {} as ValidatedLawyer;
 
-    let idCounter = 1;
     validatedLawyer.ID = idCounter;
+    idCounter += 1;
 
     validatedLawyer['Duplicated with'] = null;
 
@@ -60,8 +62,6 @@ export const validator = (
           break;
       }
     }
-
-    idCounter += 1;
 
     return validatedLawyer;
   });
