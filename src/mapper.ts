@@ -20,11 +20,13 @@ const normalizeHeaders = (headers: string[]) => {
 
 const objectify = (headers: string[], records: CellData[][]) => {
   return records.map(lawyer => {
-    const normalizedRecord = {} as NormalizedRecord;
-    lawyer.forEach((field, index) => {
+    const normalizedRecord = lawyer.reduce<NormalizedRecord>((acc, field, index) => {
       const key = headers[index] as keyof NormalizedRecord;
-      normalizedRecord[key] = field;
-    });
+
+      Object.assign(acc, { [key]: field });
+
+      return acc;
+    }, {} as NormalizedRecord);
 
     return normalizedRecord;
   });

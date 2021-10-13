@@ -2,7 +2,6 @@ export const hasChildrenValidator = (hasChildren: boolean | string) => {
   let isValid = true;
   let value;
   let errorMessage = '';
-  let errorLevel = null;
 
   if (typeof hasChildren === 'string') {
     switch (hasChildren) {
@@ -25,8 +24,11 @@ export const hasChildrenValidator = (hasChildren: boolean | string) => {
     }
   } else {
     value = hasChildren;
-    errorLevel = 'local';
   }
+
+  const errorLevel = isValid
+    ? null
+    : 'local';
 
   return {
     value,

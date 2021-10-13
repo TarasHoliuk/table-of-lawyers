@@ -1,4 +1,5 @@
 const standardHeaders = [
+  'id',
   'fullName',
   'phone',
   'email',
@@ -9,11 +10,14 @@ const standardHeaders = [
   'licenseStates',
   'expirationDate',
   'licenseNumber',
+  'duplicateWith',
 ];
 
 export const INVALID_HEADERS = 'Table headers is not valid';
 
 export const headersValidator = (headers: string[]) => {
+  console.log(headers);
+
   const isValidHeaders = headers.every(header => standardHeaders.includes(header));
 
   if (!isValidHeaders) {

@@ -39,13 +39,13 @@ export const Table: React.FC<Props> = React.memo(
               </td>
               <td
                 className={row.phone.isValid ? '' : 'has-background-danger'}
-                title={row.phone.value}
+                title={row.phone.errorMessage}
               >
                 {row.phone.value}
               </td>
               <td
                 className={row.email.isValid ? '' : 'has-background-danger'}
-                title={row.email.value}
+                title={row.email.errorMessage}
               >
                 {row.email.value}
               </td>
