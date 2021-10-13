@@ -10,7 +10,7 @@ export const duplicateValidator = (validatedData: ValidatedLawyer[]) => {
     });
 
     if (foundedDuplicate) {
-      lawyer.duplicatedWith = foundedDuplicate.id;
+      lawyer.duplicateWith = foundedDuplicate.id;
     }
 
     return lawyer;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ValidatedLawyer } from '../../types/NormalizedRecord';
+import { ValidatedLawyer } from '../../types/ValidatedLawyer';
 
 interface Props {
   records: ValidatedLawyer[];
@@ -95,8 +95,8 @@ export const Table: React.FC<Props> = React.memo(
               >
                 {row.licenseNumber.value}
               </td>
-              <td className={row.duplicatedWith ? 'has-background-danger' : ''}>
-                {row.duplicatedWith}
+              <td className={row.duplicateWith ? 'has-background-danger' : ''}>
+                {row.duplicateWith}
               </td>
             </tr>
           ))}
