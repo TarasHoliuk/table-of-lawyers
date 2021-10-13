@@ -20,6 +20,7 @@ module.exports = {
     'no-case-declarations': 0,
     'padding-line-between-statements': 0,
     'no-param-reassign': 0,
+    'no-nested-ternary': 0,
 
     // TypeScript
     '@typescript-eslint/no-unused-vars': ['error'],

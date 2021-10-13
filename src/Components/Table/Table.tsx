@@ -71,7 +71,11 @@ export const Table: React.FC<Props> = React.memo(
                 className={row.hasChildren.isValid ? '' : 'has-background-danger'}
                 title={row.hasChildren.errorMessage}
               >
-                {row.hasChildren.value ? 'TRUE' : 'FALSE'}
+                {typeof row.hasChildren.value === 'string'
+                  ? row.hasChildren.value
+                  : row.hasChildren.value
+                    ? 'TRUE'
+                    : 'FALSE'}
               </td>
               <td
                 className={row.licenseStates.isValid ? '' : 'has-background-danger'}
