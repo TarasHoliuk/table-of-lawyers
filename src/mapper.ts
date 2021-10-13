@@ -22,7 +22,7 @@ const objectify = (headers: string[], records: CellData[][]) => {
   return records.map(lawyer => {
     const normalizedRecord = {} as NormalizedRecord;
     lawyer.forEach((field, index) => {
-      const key = headers[index];
+      const key = headers[index] as keyof NormalizedRecord;
       normalizedRecord[key] = field;
     });
 
@@ -32,6 +32,7 @@ const objectify = (headers: string[], records: CellData[][]) => {
 
 export const mapper = (headers: string[], data: CellData[][]) => {
   const normalizedHeaders = normalizeHeaders(headers);
+
   let idCounter = 1;
   const normalizedRecords = data.map(lawyer => {
     const mappedLawyer = lawyer.map(field => {

@@ -6,7 +6,7 @@ export const nameValidator = (name: string) => {
   if (name === null || name === '') {
     return {
       errorLevel: 'global',
-      name,
+      value: name,
       isValid,
       errorMessage,
     };

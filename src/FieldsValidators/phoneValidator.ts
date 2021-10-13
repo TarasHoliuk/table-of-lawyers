@@ -9,7 +9,7 @@ export const phoneValidator = (phone: string) => {
   if (phone === null || phone === '') {
     return {
       errorLevel: 'global',
-      phone,
+      value: phone,
       errorMessage,
       isValid,
     };

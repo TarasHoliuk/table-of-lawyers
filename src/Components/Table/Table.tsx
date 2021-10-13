@@ -1,5 +1,5 @@
 import React from 'react';
-import { ValidatedLawyer } from '../../types/ValidatedLawyer';
+import { ValidatedLawyer } from '../../types/NormalizedRecord';
 
 interface Props {
   records: ValidatedLawyer[];
@@ -10,7 +10,7 @@ export const Table: React.FC<Props> = React.memo(
     const { records } = props;
 
     return (
-      <table>
+      <table className="table is-bordered is-stripped is-hoverable">
         <thead>
           <tr>
             <th>ID</th>

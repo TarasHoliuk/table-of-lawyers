@@ -4,7 +4,8 @@ export const duplicateValidator = (validatedData: ValidatedLawyer[]) => {
   let foundedDuplicate: null | ValidatedLawyer | undefined = null;
   return validatedData.map(lawyer => {
     foundedDuplicate = validatedData.find(duplicate => {
-      return (duplicate.phone === lawyer.phone || duplicate.email === lawyer.email)
+      return (duplicate.phone.value === lawyer.phone.value
+        || duplicate.email.value.toLowerCase() === lawyer.email.value.toLowerCase())
       && duplicate.id !== lawyer.id;
     });
 
