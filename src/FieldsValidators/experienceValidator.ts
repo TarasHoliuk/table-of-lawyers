@@ -12,10 +12,14 @@ export const experienceValidator = (experience: number, age: number) => {
     : 'Experience should be less than age';
 
   const isValid = isPositive && isLessThanAge;
+  const errorLevel = isValid
+    ? null
+    : 'local';
 
   return {
     value: experience,
     errorMessage,
     isValid,
+    errorLevel,
   };
 };

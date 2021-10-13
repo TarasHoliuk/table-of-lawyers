@@ -1,31 +1,22 @@
 import React, { useState } from 'react';
-import { parser } from '../../parser';
-import { LawyerData } from '../../types/lawyerData';
 
 interface Props {
-  setParsedData: React.Dispatch<React.SetStateAction<LawyerData[]>>;
+  uploadHandler: (csvFileString: string) => void;
 }
 
 export const FileUploader: React.FC<Props> = (props) => {
-  const { setParsedData } = props;
-  // const [fileData, setFileData] = useState('');
-  const [file, setFile] = useState<File>();
+  const { uploadHandler } = props;
 
-  const parseData = (data: string) => {
-    console.log('parsing');
-    const parsingResult = parser(data);
-    setParsedData(parsingResult);
-    console.log('parsed');
-  };
+  const [file, setFile] = useState<File>();
 
   const uploadFile = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target?.files) {
-      // setFile(event.target.files[0]);
+      setFile(event.target.files[0]);
       const reader = new FileReader();
 
       reader.onload = (progressEvent) => {
         const csvString = progressEvent.target?.result as string;
-        parseData(csvString);
+        uploadHandler(csvString);
       };
 
       if (event.target.files[0]) {
@@ -57,15 +48,6 @@ export const FileUploader: React.FC<Props> = (props) => {
           </span>
         </label>
       </div>
-
-      <button
-        type="button"
-        className="button is-info"
-        // onClick={() => parseData(fileData)}
-        disabled={!file}
-      >
-        Parse data
-      </button>
     </>
   );
 };

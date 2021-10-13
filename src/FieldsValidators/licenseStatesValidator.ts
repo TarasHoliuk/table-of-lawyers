@@ -1,7 +1,7 @@
 import { states } from '../states';
 
 export const licenseStatesValidator = (statesString: string) => {
-  const enteredStates = statesString.trim().split(' | ');
+  const enteredStates = statesString.split(' | ');
   let errorMessage = '';
   let isValid = true;
 
@@ -22,9 +22,14 @@ export const licenseStatesValidator = (statesString: string) => {
       : state;
   });
 
+  const errorLevel = isValid
+    ? null
+    : 'local';
+
   return {
     value: formattedStates.join(' | '),
     errorMessage,
     isValid,
+    errorLevel,
   };
 };

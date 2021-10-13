@@ -17,10 +17,14 @@ export const ageValidator = (age: number) => {
     : 'Lawyer should be adult';
 
   const isValid = isInteger && isAdult;
+  const errorLevel = isValid
+    ? null
+    : 'local';
 
   return {
     value: age,
     errorMessage,
     isValid,
+    errorLevel,
   };
 };

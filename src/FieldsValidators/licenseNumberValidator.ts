@@ -1,17 +1,21 @@
 export const licenseNumberValidator = (licenseNumber: string) => {
-  const trimmedLicenseNumber = licenseNumber.trim();
   const licenseNumberRegExp = /^(([a-zA-Z]|[\d]){6})$/;
 
   let errorMessage = '';
 
-  const isValid = licenseNumberRegExp.test(trimmedLicenseNumber);
+  const isValid = licenseNumberRegExp.test(licenseNumber);
   errorMessage = isValid
     ? ''
     : 'License number is not valid';
 
+  const errorLevel = isValid
+    ? null
+    : 'local';
+
   return {
-    value: trimmedLicenseNumber,
+    value: licenseNumber,
     errorMessage,
     isValid,
+    errorLevel,
   };
 };

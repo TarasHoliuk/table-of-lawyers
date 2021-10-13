@@ -9,57 +9,39 @@ import { licenseStatesValidator } from '../FieldsValidators/licenseStatesValidat
 import { nameValidator } from '../FieldsValidators/nameValidator';
 import { phoneValidator } from '../FieldsValidators/phoneValidator';
 import { yearlyIncomeValidator } from '../FieldsValidators/yearlyIncomeValidator';
-import { LawyerData } from '../types/lawyerData';
-import { ValidatedLawyer } from '../types/validatedLawyer';
+import { NormalizedRecord } from '../types/NormalizedRecord';
+import { ValidatedLawyer } from '../types/ValidatedLawyer';
 
-export const validator = (
-  data: LawyerData[],
-  setGlobalError: React.Dispatch<React.SetStateAction<boolean>>,
-) => {
-  let idCounter = 1;
+const validators = {
+  fullName: nameValidator,
+  phone: phoneValidator,
+  email: emailValidator,
+  age: ageValidator,
+  experience: experienceValidator,
+  yearlyIncome: yearlyIncomeValidator,
+  hasChildren: hasChildrenValidator,
+  licenseStates: licenseStatesValidator,
+  expirationDate: expirationDateValidator,
+  licenseNumber: licenseNumberValidator,
+};
+
+export const INVALID_DATA = 'Invalid lawyers data';
+
+export const validator = (data: NormalizedRecord[]) => {
+  let errorsCounter = 0;
 
   let validatedData = data.map(lawyer => {
     const validatedLawyer: ValidatedLawyer = {} as ValidatedLawyer;
 
-    validatedLawyer.ID = idCounter;
-    idCounter += 1;
-
-    validatedLawyer['Duplicated with'] = null;
-
     for (const key in lawyer) {
-      switch (key) {
-        case 'Full Name':
-          validatedLawyer[key] = nameValidator(lawyer[key], setGlobalError);
-          break;
-        case 'Phone':
-          validatedLawyer[key] = phoneValidator(lawyer[key], setGlobalError);
-          break;
-        case 'Email':
-          validatedLawyer[key] = emailValidator(lawyer[key], setGlobalError);
-          break;
-        case 'Age':
-          validatedLawyer[key] = ageValidator(lawyer[key]);
-          break;
-        case 'Experience':
-          validatedLawyer[key] = experienceValidator(lawyer[key], lawyer.Age);
-          break;
-        case 'Yearly Income':
-          validatedLawyer[key] = yearlyIncomeValidator(lawyer[key]);
-          break;
-        case 'Has children':
-          validatedLawyer[key] = hasChildrenValidator(lawyer[key]);
-          break;
-        case 'License states':
-          validatedLawyer[key] = licenseStatesValidator(lawyer[key]);
-          break;
-        case 'Expiration date':
-          validatedLawyer[key] = expirationDateValidator(lawyer[key]);
-          break;
-        case 'License number':
-          validatedLawyer[key] = licenseNumberValidator(lawyer[key]);
-          break;
-        default:
-          break;
+      if (key !== 'id' || key !== 'duplicateWith') {
+        validatedLawyer[key] = validators[key](lawyer[key]);
+      }
+
+      if (validatedLawyer[key].errorLevel === 'global') {
+        throw new Error(INVALID_DATA);
+      } else if (validatedLawyer[key].errorLevel === 'local') {
+        errorsCounter += 1;
       }
     }
 
@@ -68,5 +50,5 @@ export const validator = (
 
   validatedData = duplicateValidator(validatedData);
 
-  return validatedData;
+  return { validatedData, errorsCounter };
 };

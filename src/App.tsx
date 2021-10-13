@@ -2,40 +2,45 @@ import React, { useState } from 'react';
 import './App.scss';
 import { FileUploader } from './Components/FileUploader/FileUploader';
 import { Table } from './Components/Table/Table';
-import { validator } from './Components/validator';
-import { LawyerData } from './types/lawyerData';
-import { ValidatedLawyer } from './types/validatedLawyer';
+import { validator, INVALID_DATA } from './Components/validator';
+import { mapper } from './mapper';
+import { parser } from './parser';
+import { ValidatedLawyer } from './types/ValidatedLawyer';
 
 export const App: React.FC = () => {
-  const [parsedData, setParsedData] = useState<LawyerData[]>([]);
-  const [validatedData, setValidatedData] = useState<ValidatedLawyer[]>([]);
+  const [lawyers, setLawyers] = useState<ValidatedLawyer[]>([]);
   const [globalError, setGlobalError] = useState(false);
+  const [errorsAmount, setErrorsAmount] = useState(0);
 
-  console.log(parsedData);
+  const onUpload = (csvString: string) => {
+    const { headers, records } = parser(csvString);
+    const NormalizedRecord = mapper(headers, records);
 
-  const showTable = () => {
-    setGlobalError(false);
-    setValidatedData(validator(parsedData, setGlobalError));
+    try {
+      const { validatedData, errorsCounter } = validator(NormalizedRecord);
+      setErrorsAmount(errorsCounter);
+      setGlobalError(false);
+      setLawyers(validatedData);
+    } catch (error) {
+      if (error === INVALID_DATA) {
+        setGlobalError(true);
+      } else {
+        throw error;
+      }
+    }
   };
 
   return (
     <>
       <div className="App">
-        <FileUploader setParsedData={setParsedData} />
+        <FileUploader uploadHandler={onUpload} />
       </div>
 
-      <button
-        type="button"
-        className="button is-primary"
-        onClick={() => showTable()}
-        disabled={parsedData.length <= 0}
-      >
-        Show Table
-      </button>
+      {errorsAmount && <span>{`Number of errors: ${errorsAmount}`}</span>}
 
       {globalError
         ? <div>File is invalid</div>
-        : validatedData.length > 0 && <Table validatedData={validatedData} />}
+        : lawyers.length > 0 && <Table records={lawyers} />}
     </>
   );
 };

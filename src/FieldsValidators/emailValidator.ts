@@ -1,37 +1,32 @@
-export const emailValidator = (
-  email: string,
-  setGlobalError: React.Dispatch<React.SetStateAction<boolean>>,
-) => {
+export const emailValidator = (email: string) => {
   let isValid = false;
   let errorMessage = '';
-  let trimmedEmail = '';
-  // const globalErrorResult = {
-  //   value: email,
-  //   errorMessage,
-  //   isValid,
-  //   globalError: true,
-  // };
+  let errorLevel = null;
 
-  if (email === null) {
-    setGlobalError(true);
-  } else {
-    trimmedEmail = email.trim();
-
-    if (trimmedEmail === '') {
-      setGlobalError(true);
-    }
+  if (email === null || email === '') {
+    return {
+      errorLevel: 'global',
+      value: email,
+      errorMessage,
+      isValid,
+    };
   }
 
   const emailRegExp = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
 
-  isValid = emailRegExp.test(trimmedEmail);
+  isValid = emailRegExp.test(email);
   errorMessage = isValid
     ? ''
     : 'Email is not valid';
 
+  errorLevel = isValid
+    ? null
+    : 'local';
+
   return {
-    value: trimmedEmail,
+    value: email,
     errorMessage,
     isValid,
+    errorLevel,
   };
 };

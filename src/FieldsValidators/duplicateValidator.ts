@@ -1,14 +1,15 @@
-import { ValidatedLawyer } from '../types/validatedLawyer';
+import { ValidatedLawyer } from '../types/ValidatedLawyer';
 
 export const duplicateValidator = (validatedData: ValidatedLawyer[]) => {
+  let foundedDuplicate: null | ValidatedLawyer | undefined = null;
   return validatedData.map(lawyer => {
-    const foundedDuplicate = validatedData.find(duplicate => {
-      return (duplicate.Phone === lawyer.Phone || duplicate.Email === lawyer.Email)
-      && duplicate.ID !== lawyer.ID;
+    foundedDuplicate = validatedData.find(duplicate => {
+      return (duplicate.phone === lawyer.phone || duplicate.email === lawyer.email)
+      && duplicate.id !== lawyer.id;
     });
 
     if (foundedDuplicate) {
-      lawyer['Duplicated with'] = foundedDuplicate.ID;
+      lawyer.duplicatedWith = foundedDuplicate.id;
     }
 
     return lawyer;

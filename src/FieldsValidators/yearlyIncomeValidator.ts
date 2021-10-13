@@ -14,10 +14,14 @@ export const yearlyIncomeValidator = (yearlyIncome: number) => {
   const value = +yearlyIncome.toFixed(2);
 
   const isValid = isPositive && isLessThanMillion;
+  const errorLevel = isValid
+    ? null
+    : 'local';
 
   return {
     errorMessage,
     value,
     isValid,
+    errorLevel,
   };
 };

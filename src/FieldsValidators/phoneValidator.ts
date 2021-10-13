@@ -1,45 +1,44 @@
-export const phoneValidator = (
-  phone: string,
-  setGlobalError: React.Dispatch<React.SetStateAction<boolean>>,
-) => {
+export const phoneValidator = (phone: string) => {
   const phoneRegExp = /^(\+1|\+)?([\d]{10,11}$)/;
 
   let formattedPhone = '';
   let errorMessage = '';
-  let trimmedPhone = '';
+  let errorLevel = null;
+  let isValid = false;
 
-  if (phone === null) {
-    setGlobalError(true);
-  } else {
-    trimmedPhone = phone.trim();
-
-    if (trimmedPhone === '') {
-      setGlobalError(true);
-    }
+  if (phone === null || phone === '') {
+    return {
+      errorLevel: 'global',
+      phone,
+      errorMessage,
+      isValid,
+    };
   }
 
-  const isValid = phoneRegExp.test(trimmedPhone);
+  isValid = phoneRegExp.test(phone);
 
   if (isValid) {
-    switch (trimmedPhone.length) {
+    switch (phone.length) {
       case 10:
-        formattedPhone = `+1${trimmedPhone}`;
+        formattedPhone = `+1${phone}`;
         break;
       case 11:
-        formattedPhone = `+${trimmedPhone}`;
+        formattedPhone = `+${phone}`;
         break;
       default:
-        formattedPhone = trimmedPhone;
+        formattedPhone = phone;
         break;
     }
   } else {
-    formattedPhone = trimmedPhone;
+    formattedPhone = phone;
     errorMessage = 'Phone format is not valid';
+    errorLevel = 'local';
   }
 
   return {
     value: formattedPhone,
     errorMessage,
     isValid,
+    errorLevel,
   };
 };

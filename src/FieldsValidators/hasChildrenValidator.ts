@@ -1,35 +1,37 @@
 export const hasChildrenValidator = (hasChildren: boolean | string) => {
   let isValid = true;
-  let value = '';
+  let value;
   let errorMessage = '';
+  let errorLevel = null;
 
   if (typeof hasChildren === 'string') {
-    const trimmedHasChildren = hasChildren.trim();
-
-    switch (trimmedHasChildren) {
+    switch (hasChildren) {
       case '':
         isValid = true;
-        value = 'FALSE';
+        value = false;
         break;
       case 'TRUE':
+        value = true;
+        isValid = true;
+        break;
       case 'FALSE':
         isValid = true;
-        value = trimmedHasChildren;
+        value = false;
         break;
       default:
         isValid = false;
-        value = trimmedHasChildren;
+        value = hasChildren;
         errorMessage = 'Value should be TRUE/FALSE or empty';
     }
   } else {
-    value = hasChildren
-      ? 'TRUE'
-      : 'FALSE';
+    value = hasChildren;
+    errorLevel = 'local';
   }
 
   return {
     value,
     errorMessage,
     isValid,
+    errorLevel,
   };
 };

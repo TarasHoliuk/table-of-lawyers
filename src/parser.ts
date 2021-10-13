@@ -1,13 +1,14 @@
 import Papa from 'papaparse';
-import { LawyerData } from './types/lawyerData';
+import { CellData } from './types/CellData';
 
 const parseConfig = {
-  header: true,
   dynamicTyping: true,
 };
 
-export const parser = (myData: string) => {
-  const parseResult = Papa.parse(myData, parseConfig);
+export const parser = (fileData: string) => {
+  const parseResult = Papa.parse<CellData[]>(fileData, parseConfig).data;
 
-  return parseResult.data as LawyerData[];
+  const headers = parseResult.shift() as string[];
+
+  return { headers, records: parseResult };
 };
